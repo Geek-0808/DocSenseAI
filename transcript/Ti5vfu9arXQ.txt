@@ -1,0 +1,592 @@
+hi I'm Aus a technical recruiter here at
+Google in this video we'll show two
+software engineers at Google working
+through a mock technical interview
+question please note that this example
+is not a question you'll be asked
+exactly however it represents the type
+of questions we like to ask our
+candidates one that allows you to stay
+your assumptions improve your solution
+and is ultimately open-ended enough to
+show us how you think if you're
+interested in seeing an example of
+solving a system design question or
+learning more about our hiring process
+visit the videos Linked In the
+description below on to the mock
+interview
+hello my name is Sammy I'm a research
+scientist at Google research and today
+I'll be playing the role of the
+candidate and I'm Juliana I'm a software
+engineer at YouTube and I'll be playing
+the role of the interviewer just as a
+reminder you won't have access to
+compiler or IDE during your interview so
+practice writing code with Google Docs
+try to do it at home write code make
+sure your code is tested do this process
+before you come to the interview and
+don't worry about small synx errors like
+which substring to use for a given
+method just pick one like start end or
+start length and let your interviewer
+know okay let's get
+started okay so Sammy here's my
+technical question for you a farmer
+wants to farm their land with the
+maximum area where good land is present
+the land is represented as a matrix with
+ones and zeros where ones mean good land
+and zeros mean bad land the farmer only
+wants to farm in a square of good land
+with the maximum area please help the
+farmer to find a maximum area of the
+land they can Farm in good
+land I'll past the question and that
+includes an example as well for you
+awesome may I take a moment to read and
+then ask you clarifications of course
+thank
+you awesome so my first question must it
+be a square the area they want to farm
+or could it be a rectangle for this
+problem we only want it to be returning
+a square awesome okay thank you as a
+reminder it's important to get clarity
+whenever possible many questions will be
+deliberately open-ended because we're
+looking to see how you engage with a
+problem and your primary method for
+solving it be sure to talk through your
+thought process and feel free to ask
+specific questions if you need
+clarification and um I can think of like
+the naive solution but probably I
+shouldn't do this but I'll just run it
+by you okay I can Loop over every
+position and for every position I can
+basically start from that moment onwards
+go left right and count however many
+ones I can find in in like the a
+rectangle or a square sorry but that
+would be if let's say the dimensions of
+the square is like n byn that would be
+at best n to the four which is not ideal
+and I assume by posing this question you
+want to find an efficient solution yes
+this was a good example of explaining
+your thoughts remember we want to
+understand how you think so it's always
+good to explain your thought process and
+decision making throughout the interview
+not only evaluating your technical
+ability but also how to solve your
+problems be sure to explicitly State and
+check your assumptions with the
+interviewer to ensure they are
+reasonable I'm wondering if you can just
+visualize what maybe this Brute Force
+approach would look like maybe using the
+example sure okay so the Brute Force if
+I want to visualize it so I just pasted
+the example and I'm going to go over
+every index IJ index and I helped the
+first this is the second this is the
+third Etc uh let's say we get here in
+this iteration so I is becoming let's
+say two and J is becoming one in this
+position the row and column so from from
+this point as every point that we go to
+we start another double for Loop going
+to the right and bottom so here I go one
+step to the right there is a one so I
+continue and then I go to the bottom
+there is a one and I continue and then I
+go to the right of it there's a one I
+continue uh I wonder if that makes sense
+so first we start saying okay he when we
+get to this point we we have we know
+that we can do a one by one then we ask
+can we do a 2 by two and if the answer
+to answer that we have to complete the 2
+by two triangle so we have to look in
+this vicinity so to speak yes then we
+say okay now yes I know I can do a 2 x
+two starting from this position can we
+can I do a 3X3 and to answer that we
+have to go on this like wrapper like I'm
+going to select them one by one because
+it's hard to S otherwise and I then I
+select those uh so we like extend the
+boundary by one column on one row check
+that there're all ones there and then we
+keep track of the maximum so if we
+arrived at three here then I memorize
+that three is the best so far and then
+until I Loop over all the indices
+possible maybe I'll update my three to
+something else and it'll return wherever
+number has been kept but as we already
+said this is not optimal but it will do
+the job I think that even though this
+may be a Brute Force solution it would
+be the right approach in checking the
+nearby values and having that inform how
+large the square could be awesome and I
+guess do you want me to program this for
+solution or am I going to penalize it
+should I just think about something
+about we can just move on to maybe what
+you would consider a more optimal
+solution sure awesome okay so these
+kinds of pro problems uh I feel like I
+can solve them in two other different
+ways H the first one would be recursive
+so here the recursion can say um let's
+let's ignore the zeros because as soon
+as I find a zero we can just return from
+this point you can't have a square but
+let's say we get to this point like oh
+yes there's a one so I can make a 1 by
+one uh then we can ask the surroundings
+can we make more than one by one and
+then if if if I can ask the square next
+to me actually let me think about it
+okay if if if this is a one the right of
+it is a one the bottom of it is a one we
+can ask this this that I'm highlighting
+how big of a square can you make it
+actually no I think you're on the right
+track that you're checking the right uh
+below and diagonal values but because
+there is a zero here does that mean it
+could be a valid Square zero is invalid
+right yes yes that that would be the
+case so so based on that what can you
+infer that if that you're at that one
+position at the um that index yeah if
+I'm the index what can you infer as the
+maximum Square this index uh it is a one
+because we can see the diagonal is
+already a zero yes yes that's correct
+but you then know that the neighboring
+values are also ones so there is a
+possibility that those could have valid
+squares that are greater than
+one correct yes I mean in this specific
+case because the diagonal is zero that
+means this next to this one below it is
+a zero unless we're coming from above
+true right I guess the one below it uh
+actually neither of those but
+you could potentially have as you're
+saying a recursive algorithm how would
+that look then MH so the recursive
+algorithm I'm I'm trying to think out
+loud as as I'm as I'm describing the
+solution so basically when we see a one
+here we can we can we can ask can this
+be part of a bigger rectangle and uh
+recursively how would that look like we
+have to ask the neighbors how much how
+many ones they have conectiv
+continuously mhm so that could be saying
+that okay there's a one here um then we
+can invoke a recursive call that says
+how many how many ones are starting at
+the right of me making a square so if if
+I wish I can highlight but let's let's
+imagine me I'm going to bold this I'm
+going to bold this that marks the end
+and the beginning of of a square so when
+I'm at this one right here I asked the
+square I asked right of me how big of a
+square can you be and uh if let's say
+this whole area had ones even though it
+doesn't if it had all ones the right of
+me should say oh I can do a 3X3 and I'm
+I'm I'm going to try to break this down
+into maybe one step at a time so when I
+ask this one how many ones do you have
+how how big of a square can you form it
+could ask the one right of it how many
+can you form it can ask the the bottom
+of it how can many can you form yes and
+and then if how whichever so whichever
+Returns the minimum I will take that and
+I'll add one to it trying to think if
+this will always be correct so if this
+one said I can do a a two 2 by two let's
+say it's it clearly can do a 2 by two
+I'm going to change your input by a
+little bit if that's okay so which which
+means this would have been one this
+would have been a one okay and this the
+one that I'm highlighting is asking the
+one right of it how big can you can you
+be your Square can be this will say oh I
+can do a two then it ask the bottom of
+it how big of a square can you do and
+this particular case is going to say
+three uh because I can see the ones like
+here this one I think that and this one
+are making a square ah I see so you
+would compute it like top down so that
+one that you've highlighted um in the in
+2 two index or 2 two coordinates would
+have a contain a three value because it
+can form that 3x3 square right exactly
+got it yes that makes sense and uh let
+me see if if taking the minimum is uh
+sufficient so to speak so this one can
+create a 3X3 yes the one right of it can
+create a 2 by two or I guess now the
+example is so corrupted because I kept
+changing things uh let's see actually uh
+this one yes so this one that maybe I
+should color uh so let me color this to
+red the red one will say I can do a 2 x
+two starting from this coordinate yes
+the the blue one or the one that will
+become blue we'll say I can do a 3X3
+starting at this coordinate yep now how
+much can this one create the one I'm
+highlighting it would still be the
+minimum I'm thinking right because you
+can do more than 3x3 okay so now now we
+can think about the base cases of the
+recursion so to speak yes so the base
+case if we had a zero then we can't do
+we return a zero yes if we had a one
+then we ask the right and the bottom to
+do the recursion we invoke them and we
+return their minimum yes I'm trying to
+think at which case do we in which case
+do we grow I'm thinking we can grow let
+me think so if this if the red one
+hypothetically said I could do a 3X3 I'm
+just thinking um and the bottom one can
+say I can do a
+3X3
+okay um I I need to think that there
+there has to be we can grow the ones you
+know we have to return a five or
+something eventually so if the right of
+me can say I can do a 3X3 which you know
+so maybe I can hack the numbers again
+just for the sake of example it can say
+I can do a 3X3 uh actually this is still
+a 2 x two okay I have to do this as a
+one so the red the red one can now do a
+3X3 the blue one can also do 3x3 only
+3x3 exactly um then this one is so far
+is going to say three is the number
+however if this was a one right here it
+will be four then it will be four but
+let let me just like so that would mean
+the diagonal number would also be three
+to which case because you have a one in
+that first field the at the 01
+coordinates M um what could that say if
+all of the three values down diagonal
+and to your right are all three and this
+is a one what could that be makes sense
+okay so if all the
+values are three then I should say I can
+do four exactly Mak sense okay okay so I
+think I think I'm able to write it
+recursively of course the recursion is
+not the most optimal because it has to
+retry something multiple times we can
+always add a memorization memory element
+to it this way each unique invocation
+will only happens only once which will
+make this be at most quadratic we we
+will invoke it at most n Square times
+then but usually for anything that you
+can do with memorization there ought to
+be a dynamic programming solution where
+you can do Bottoms Up you want me to
+program the recursive uh memorization
+lazy version or should I strive for the
+most efficient dynamic programming
+version I'm thinking that I want to
+first see your thinking for the bottom
+up the dynamic programming solution and
+then we can go ahead and code it I just
+want to see what your thinking would be
+for how bottom up would look sure okay
+you kind of gave me a hint already by
+saying check the diagonal if it also can
+do a 3X3 uh so in that regard maybe I
+can have I can this is the input we're
+highlighting right now we can start with
+the with the dynamic programming array
+with this that has the same exact size
+but it's initialized to zero everywhere
+y then at any moment that I want to
+compute an entry I want to populate an
+entry in this DP Matrix that starts at
+all zeros I'll be looking at the the the
+same position of the of the input and
+also the surrounding positions of the
+input and potentially the surrounding
+positions of the dynamic programming
+array the DP array and populated
+incrementally as such and so your DP
+array would contain which what values
+exactly okay so at every at at every
+entry in the input if the entry in the
+input is zero then we should write zero
+in the dynamic programming array if the
+entry is one uh then we need to
+basically look at the surrounding
+positions as you said like the top
+position just top of me just left of me
+just diagonal left of me in the dynamic
+programming array and we should take the
+minimum but if they all agree to be like
+the same value I'll just increment by
+one in the DP array and uh the final
+return of this whole program is the
+maximum entry in the DP array yeah does
+that sound correct that sounds correct
+um I do want to highlight that you will
+be then capturing the height of the
+square instead of the area in this array
+mm and if that's fine too if that's the
+direction you want to go in capturing
+the height okay because it is a square
+so it is a square I see yeah that's
+right
+yes okay um should I start programming
+the dynamic solution and I can explain
+it as a program it if that's okay that
+sounds great let's do it okay so
+programming python into a document so
+maybe I can choose consolas as as a font
+and I can say def U largest square and
+it takes input as a b array I'm going to
+say B array is that fine do you want it
+to be typed or no typed as in like know
+this the typing of python should I do
+something like this mp. ndr or at least
+say it's a list of list of int you want
+these types it will be a list of it will
+be a 2d array of inss yeah that's
+perfect awesome so and then the answer
+is just an INT which is the maximum area
+exactly okay so first I'm going to say
+my DP array is equal to an error of all
+zeros I guess I can I want to capture
+first n uh which is the the length of
+the bin array so it could be a 5x5 10 x
+10 square Etc it's End by end so we want
+to make an all zero I'm going to do
+this okay so now after this line DP is
+just an N byn array with all zeros oh
+something that I wanted to point out
+here is that it's possible that it's a m
+by n the width and the height do not not
+agree uh yes for the input array good to
+know but your output array or your
+output area should be a Square thank you
+for making this clarification okay so
+then I will do this as my n * m and now
+I can say something like this yep so let
+me just make sure yes I'm consistent in
+my indexing so to speak uh that if an
+index I exists in DP then it must also
+exist in bin array yep awesome okay so
+my DP starts at all zero now we you're
+going to do the double for Loop that we
+mentioned so for I in
+range and mhm forj and range
+M and here at every Square we're going
+to write the maximum that we could do
+yes scroll
+down so let me think uh first if if the
+entry had a zero f yeah bin
+array of I J is zero then and the DP
+will have a zero in it yeah so in that
+case I will just because the DP was
+initialized at zero I can just continue
+I can skip to the next iteration if I'm
+allowed to use continue yeah yeah of
+course awesome okay so the then at any
+entry that's not a zero we should look
+up the left and the top and the diagonal
+and we'll see their values so maybe I
+can say say left value is equal to right
+value for now I'll set them later to the
+diagonal value all to zero and I'll set
+them conditionally why because I don't
+want to I want to skip the boundary
+conditions so if the left of me if I is
+uh greater than zero that means I'm not
+at the boundary that means the left
+could be something that's not zero so
+now we set the left to DP of IUS one J
+uh yep and I want to do the same thing
+similar thing to the right
+one otherwise they will stay at zero um
+quick question is it possible to handle
+the boundaries before you enter this
+scope yes uh yes I'm
+sure so we could copy the boundaries
+from the input ver team to the DP and
+then our Loop could be starting from one
+instead of from
+zeros um I'm thinking more so that if
+you are in the zero index of the row or
+the column if there's a handling you
+could do before you enter this scope of
+setting the left and right diagonal
+indices so you're saying like before we
+enter these Loops we should handle the
+borders maybe that's what I'm hearing
+maybe yeah I think it's possible to do
+it within the loop if you'd like we
+could um or let me know if that doesn't
+sound right we we could do it so you are
+saying that perhaps instead of having
+these if statements inside the for loop
+I could do something before then I no
+longer need these if statements you
+could do it outside of the for Loop you
+could do within the for Loop either way
+I see okay so yes I could do that I mean
+there are many ways to do it so uh I I
+want to think
+that yes okay so how about I want wonder
+if if it will complain okay so
+mathematically speaking I can do this
+left let me let me know what you think
+about this so what if I set it to that
+and then I just multiply by a Boolean
+expression uh I is greater than zero so
+here what I'm trying to do is to say h
+the I greater than zero this booing
+condition will only be valid will only
+say one if I'm not I'm not at the
+boundary if I'm at the boundary then I
+can say your left is zero is that yeah
+that's possible that's possible but then
+what if the value is one then the
+maximum Square could still be one even
+in the row and column like the edges
+right so I still so yes here like this
+right and left and dag so far they're
+just for reading I still haven't
+inserted anything into the DP uh my plan
+is to insert in a moment like perhaps
+right now awesome okay okay so if if uh
+if I is greater than zero and J is
+greater than zero and now I can read my
+diagonal diag is equal to I'm going to
+copy the line four and just add a minus
+one and now I want to write the DP at
+this moment right here so H we just like
+we're brainstorming if they're all if
+they're all set then I'll read the
+minimum of the three and and increment
+by one if they're not set then I'll just
+read the
+minimum yes uh and what would be the
+deciding factor for that whether the
+yeah what would be the deciding factor
+of that the so to increment by one yes a
+basically the the array right here the
+array entry should have a non zero got
+it we increment by one and that's the
+first if statement in the nested for
+Loop that if we are at zero then we just
+skip that entry we keep it in the DP as
+zero okay so if the code flow until this
+point then here I know that we it's a
+non-zero point and the top the left and
+the diagonal have some numbers and using
+those numbers the to the top left or
+right some of them could be zeros uh the
+top left diagonal some of them could be
+zeros if they are all set that means I
+should take the minimum plus
+one okay right Mak sense right that
+makes sense awesome if left is greater
+than zero
+and right is greater than zero and diag
+is greater than zero then I will set the
+entry right here DP i j to the minimum
+of those left right I think I should put
+it in Array syntax wise I forgot but I
+can try that h plus
+one okay let me think is there wait
+sorry quick question is there a reason
+why we need to check the that all the
+values are greater than zero if we are
+taking the minimum
+here if we've already checked that the
+it's not a zero value do we need to
+actually check that we don't need to you
+are correct yes so this if statement is
+IR relevant because if any of them is
+zero then the minimum will also be a
+zero and the fin answer will be a one
+which is exactly what we need you're
+right this estatement is not needed if
+anything it might make a bug okay no
+that's perfect yep awesome so we still
+don't have the final answer the final
+answer is keeping track of what was the
+maximum of course I can stay within the
+same computational complexity and I can
+just say return the max over all of this
+y so return I guess I'm going to say row
+Y is Max is equal to Max
+Row for row N DP and then I can return
+the Max of rowwise
+Max So rowwise
+Max in this line uh basically it becomes
+an N numbers H each number is the
+maximum in that row and then return the
+maximum of those so we have the ma we
+invoking the max function once in this
+four Loop and once again on the list the
+final
+list um is there a way to potentially
+get the maximum or track the maximum
+within your for Loop yes there is a way
+um I can do that awesome thank you so I
+can start as the max so max num
+as1 in here and every time I update I
+basically read off the Max uh so I can
+say Max num is equal to the max of the
+previous Max num comma DP
+i
+j uh and then return at the end and of
+course there is some you know with every
+there is ways to optimize it um like for
+example specifically here we are storing
+in an index of an array we're reading
+again the same index I could have stored
+this as a variable Z or temporary
+variable but I'm hoping the compiler
+will take care of that for me we make it
+optimal definitely um yeah this solution
+looks good to me awesome and I like the
+fact that you kept correcting me and
+gearing me towards the better solution
+you are a good interview it was you you
+were always on the right track thank you
+you I hope this gives you a better
+understanding of what it's like to
+answer technical interview questions at
+Google as a reminder be sure to explain
+your thoughts get clarity when possible
+think through how to improve your
+answers and practice ahead of time
+thanks for watching and good luck in
+your interview
+[Music]

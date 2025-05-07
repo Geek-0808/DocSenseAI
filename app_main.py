@@ -1,4 +1,4 @@
-import os
+import os,re
 from pandas.core.indexes.base import JoinHow
 import requests
 import streamlit as st
@@ -16,7 +16,7 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain_core.retrievers import BaseRetriever
 from langchain.schema import Document as LC_Document
 from htmlTemplates import css, bot_template, user_template
-# from langchain.llms import HuggingFaceHub
+from youtube_transcript_api import YouTubeTranscriptApi
 from llama_index.core.node_parser import (
     SentenceSplitter,
     SemanticSplitterNodeParser,
@@ -53,14 +53,46 @@ from langchain.memory import ConversationBufferMemory
 #     return "Error fetching from CSE.";
 #   }
 # }
+# Ensure the transcript directory exists
+os.makedirs('transcript', exist_ok=True)
+
+def process_youtube_url(youtube_url):
+    video_id = extract_video_id(youtube_url)
+    if not video_id:
+        st.error("Video ID not found. Please provide a valid YouTube link.")
+        return None
+
+    transcript_text = get_video_transcript(video_id)
+    if not transcript_text:
+        st.error("Transcript can't be extracted. Please try another link.")
+        return None
+
+    output_file = f'transcript/{video_id}.txt'
+    with open(output_file, 'w', encoding='utf-8') as file:
+        file.write(transcript_text)
+    
+    return output_file
+
+def extract_video_id(youtube_url):
+    video_id_match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', youtube_url)
+    if video_id_match:
+        return video_id_match.group(1)
+    return None
+
+def get_video_transcript(video_id):
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        return "\n".join([entry['text'] for entry in transcript])
+    except Exception as e:
+        return None
 
 def get_video_text():
     None
 
 def get_search_results(query):
     query = urllib.parse.quote(query)
-    apiKey = "AIzaSyDMAPSzitB9Aq1vb6Y3hQgBDBTViMn2qMk" # 🔒 Replace with your API key
-    cx = "5427ac308d5524f0e"             # 🔒 Replace with your CSE ID
+    apiKey = "AIzaSyCEl9eYcYJr7b-aXxYEWqZF2Mcr6Uq1Ogk" # 🔒 Replace with your API key
+    cx = "26c45e1df0e6e457a"             # 🔒 Replace with your CSE ID
     url = f'https://www.googleapis.com/customsearch/v1?q={query}&key={apiKey}&cx={cx}'
     res = requests.get(url)
     # search = GoogleSearchResults({"q": query})
@@ -173,7 +205,6 @@ class FallbackRetriever(BaseRetriever):
         return self.docs
 
 def get_conversation_chain(retriever, style_prompts, llm, style="Formal"):
-    #llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
     # retriever = index.as_retriever()
     # if not isinstance(retriever, BaseRetriever):
     #     print("Retriever is not a BaseRetriever instance.")
@@ -311,12 +342,27 @@ def main():
         pdf_docs = st.file_uploader(
            "Upload your PDFs here and click on 'Process'", accept_multiple_files=True)
  
-        ## maybe this is how you take in youtube url
-        #video_docs = st.video("Enter your Video URL",)
+        video_url = st.text_input("Enter your Video URL")
+
         if st.button("Process"):
             with st.spinner("Processing"):
+                raw_text = ""
                 # get pdf text
-                raw_text = get_pdf_text(pdf_docs)
+                if pdf_docs:
+                    raw_text += get_pdf_text(pdf_docs)  # assuming get_pdf_text takes a single file
+
+                if video_url:
+                    transcript_file = process_youtube_url(video_url)
+                    if transcript_file:
+                        with open(transcript_file, 'r', encoding='utf-8') as file:
+                            raw_text += file.read()
+                
+                if not raw_text:
+                    st.error("Please upload at least a PDF or provide a YouTube URL.")
+                #else:
+                    #st.success("Processing complete!")
+                    #st.text_area("Combined Content", raw_text, height=400)
+
                 # get the text chunks
                 text_chunks = []
                 for file in pdf_docs:

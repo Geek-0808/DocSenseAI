@@ -293,7 +293,8 @@ def main():
                         )
     pinecone_index = pc.Index(index_name)
     print(pinecone_index.describe_index_stats())
-    # pinecone_index.delete(delete_all=True)
+    pinecone_index.delete(delete_all=True)
+    print(pinecone_index.describe_index_stats())
     vector_store = PineconeVectorStore(pinecone_index=pinecone_index)
 # construct vector store and customize storage context
     storage_context = StorageContext.from_defaults(

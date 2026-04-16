@@ -111,8 +111,3 @@ Steps:
 - Depends on quality of retrieved data  
 - Requires API keys (OpenAI, Pinecone)  
 - Web fallback may increase latency  
-
----
-
-## 📄 License
-MIT License
